@@ -1,3 +1,4 @@
+.DS_Store
 /config/dna.json
 /config/dna.rb
 /config/custom/*
