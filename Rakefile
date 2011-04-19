@@ -47,20 +47,20 @@ task :new_cookbook do
 end
 
 def create_cookbook(dir)
-  raise "Must provide a COOKBOOK=" unless ENV["cookbook"]
-  puts "** Creating cookbook #{ENV["cookbook"]}"
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "attributes")}" 
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "recipes")}" 
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "definitions")}" 
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "libraries")}" 
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "files", "default")}" 
-  sh "mkdir -p #{File.join(dir, ENV["cookbook"], "templates", "default")}" 
+  raise "Must provide a COOKBOOK=" unless ENV["COOKBOOK"]
+  puts "** Creating cookbook #{ENV["COOKBOOK"]}"
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "attributes")}" 
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "recipes")}" 
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "definitions")}" 
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "libraries")}" 
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "files", "default")}" 
+  sh "mkdir -p #{File.join(dir, ENV["COOKBOOK"], "templates", "default")}" 
 
-  unless File.exists?(File.join(dir, ENV["cookbook"], "recipes", "default.rb"))
-    open(File.join(dir, ENV["cookbook"], "recipes", "default.rb"), "w") do |file|
+  unless File.exists?(File.join(dir, ENV["COOKBOOK"], "recipes", "default.rb"))
+    open(File.join(dir, ENV["COOKBOOK"], "recipes", "default.rb"), "w") do |file|
       file.puts <<-EOH
 #
-# Cookbook Name:: #{ENV["cookbook"]}
+# Cookbook Name:: #{ENV["COOKBOOK"]}
 # Recipe:: default
 #
 EOH
