@@ -26,7 +26,7 @@ task :upload => [:test, :create_dna]  do
   end
   
   puts "* Upload your cookbooks *"  
-  sh "rsync -rlP --delete --exclude '.*' #{File.dirname(__FILE__)}/ #{ENV['server']}:#{REMOTE_CHEF_PATH}"
+  sh "rsync -e 'ssh -i /Users/koichihirano/.ssh/earbits-default.pem' --rsync-path='sudo rsync' -rlP --delete --exclude '.*' #{File.dirname(__FILE__)}/ #{ENV['server']}:#{REMOTE_CHEF_PATH}"
   File.delete(File.dirname(__FILE__) + "/config/dna.json")
 end
 
@@ -38,7 +38,7 @@ task :cook => [:upload]  do
   end
   
   puts "* Running chef solo on remote server *"  
-  sh "ssh #{ENV['server']} \"cd #{REMOTE_CHEF_PATH}; chef-solo -l debug -c config/solo.rb -j config/dna.json \""
+  sh "ssh -i #{ENV['private_key']} #{ENV['server']} \"cd #{REMOTE_CHEF_PATH}; chef-solo -l debug -c config/solo.rb -j config/dna.json \""
 end
 
 desc "Create a new cookbook (with cookbook=name)"
